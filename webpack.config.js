@@ -1,10 +1,11 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // Import HtmlWebpackPlugin
 
 module.exports = {
     mode: 'development', // Set mode to development
-    entry: ['./src/Scripts/index.js', './src/Styles/main.scss'], // Add the entry point for styles assuming your entry file is located at src/index.js
+    entry: ['./src/scripts/index.js', './src/styles/style.scss'], // Add the entry point for styles assuming your entry file is located at src/index.js
     output: {
         path: path.resolve(__dirname, 'dist'), // Output files in the 'dist' directory
         filename: 'bundle.js', // Bundle all JavaScript into bundle.js
@@ -54,6 +55,10 @@ module.exports = {
             filename: '[name].css', // Extract CSS into separate files
         }),
         new IgnoreEmitPlugin(['style.js']), // Ignore the extra JavaScript file generated for styles
+        new HtmlWebpackPlugin({
+            template: './src/index.html', // Use your existing index.html file
+            filename: 'index.html', // Output the file in the 'dist' directory
+        }), // Add HtmlWebpackPlugin
     ],
     resolve: {
         extensions: ['.js', '.jsx'], // Resolve these extensions automatically

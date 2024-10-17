@@ -1,0 +1,59 @@
+$text-color: #1f1f1f;
+$text-color-light: #ffffff;
+$background-color: #bbbbbb;
+$primary-color: #dfdbd3;
+$secondary-color: #1e287d;
+$accent-color: #3634cd;
+
+$primary-font: "Noto Sans JP", sans-serif;
+$font-size-body: 1rem;
+$font-size-heading: 2rem;
+$font-size-subheading: 1.5rem;
+$font-size-small: 0.75rem;
+$font-size-tiny: 0.6rem;
+$font-side-large: 3rem;
+
+.noto-sans-jp {
+	font-family: "Noto Sans JP", sans-serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+@mixin flex($direction, $justify, $align) {
+	display: flex;
+	flex-direction: $direction;
+	justify-content: $justify;
+	align-items: $align;
+  }
+  
+  @mixin text-truncate() {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+  }
+  
+  @mixin text-size($size) {
+	font-size: $size;
+  }
+  
+  // Global Styles
+  * {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+  }
+  
+body {
+	background-color: $background-color;
+	margin: 2rem 1rem;
+	color: $text-color;
+	overflow: hidden;
+	font-family: $primary-font;
+}
+
+  #app {
+	@include flex(row, none, none);
+	height: 100vh;
+	width: 100vw;
+	gap: .6rem;
+  }
