@@ -1,6 +1,8 @@
+import '../styles/style.scss'; 
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import '../styles/style.scss'; 
+
 
 import { modalTask } from './components/Modal.js';
 

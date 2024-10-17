@@ -1,6 +1,5 @@
-import '../../styles/style.scss';
 import React from 'react';
-
+import '../../styles/style.scss';
 
 function modalTask() {
 	const dialog = document.createElement('dialog');
