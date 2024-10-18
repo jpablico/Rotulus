@@ -1,6 +1,12 @@
 @use '../global.scss' as *;
 
 #modalTask {
+	padding: 1rem;
 	background-color: blue;
 	color: white;
+	margin: auto;
+	
+	.modal-upper {
+		@include flex(row, space-between, column);
+	}
 }
