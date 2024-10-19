@@ -73,6 +73,38 @@ function taskForm(tasks) {
 	});
 }
 
+function modalLabel() {
+	const dialog = document.createElement('dialog');
+	dialog.id = 'modalLabel';
+	dialog.innerHTML = `
+		<form class = 'modal-form'>	
+			<section class ='modal-upper'>
+				<h3 class='modal-task-title'>Add Label</h3>
+				<span class='material-symbols-outlined cancel-task-btn' >close</span>
+			</section>
+			<section class = 'modal-middle'>
+				<label for = 'label'>Label name</label>
+				<input type = 'text' id = 'label' name = 'label' required>
+			</section>
+			<section class = 'modal-lower'>
+				<button type = 'submit' class = 'add-label-btn'>Add Label</button>
+		</form>
+	`;
+	document.body.appendChild(dialog);
+}
+
+function labelForm(labels) {
+	const form = document.querySelector('.modal-form');
+	form.addEventListener('submit', function(event) {
+		event.preventDefault();
+		const label = document.getElementById('label').value;
+		labels.push({
+			Label: label
+		});
+		console.log(labels);
+	});
+}
+
 function openModal() {
 	const modal = document.getElementById('modalTask');
 	modal.showModal();
@@ -83,4 +115,4 @@ function closeModal() {
 	modal.close();
 }
 
-export { modalTask, labelSelection, taskForm };
+export { modalTask, labelSelection, taskForm, modalLabel, labelForm, openModal, closeModal };

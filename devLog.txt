@@ -3,3 +3,4 @@
 	- Created modal open and close. Probably rework to be a single function.
 	- Header.js created.
 	- SASS
+10.19.24 - Need to work on Label task and modals. But the header needs to be made first to refine the open and close modals functions.
