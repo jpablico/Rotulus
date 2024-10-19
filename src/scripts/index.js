@@ -4,7 +4,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 
-import { modalTask } from './components/Modal.js';
+import { modalTask, labelSelection } from './components/Modal.js';
+import { labels } from './data/data.js';
 
 
 const container = document.getElementById('app');
@@ -16,6 +17,7 @@ root.render(
 		</>
 	);
 modalTask();
+labelSelection(labels);
 
 document.addEventListener('DOMContentLoaded', function() {
 	const modal = document.getElementById('modalTask');

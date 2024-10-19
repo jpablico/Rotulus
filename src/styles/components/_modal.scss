@@ -5,8 +5,31 @@
 	background-color: blue;
 	color: white;
 	margin: auto;
+	border-radius: 15px;
+	border: none;
 	
-	.modal-upper {
-		@include flex(row, space-between, column);
+
+	.modal-form {
+		@include flex(column, flex-start, none);
+		gap: .5rem;
+
+		.modal-upper {
+			@include flex(row, space-between, column);
+		}
+	
+		.modal-middle {
+			@include flex(column, flex-start, none);
+		}
+	
+		.modal-lower {
+			@include flex(row, space-between, none);
+			gap: .2rem;
+	
+			.add-task-btn {
+				flex: 1;
+			}
+		}
 	}
+
+
 }
