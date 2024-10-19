@@ -70,7 +70,7 @@ function taskForm(tasks) {
 			priority: priority,
 			label: label
 		});
-		console.log(taskData);
+		console.log(tasks);
 	});
 }
 
