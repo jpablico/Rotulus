@@ -8,7 +8,7 @@ function modalTask() {
 		<form class = 'modal-form'>
 			<section class ='modal-upper'>
 				<h3 class='modal-task-title'>Add Task</h3>
-				<span class='material-symbols-outlined'>close</span>
+				<span class='material-symbols-outlined cancel-task-btn' >close</span>
 			</section>
 			<section class = 'modal-middle'>
 				<label for = 'task'>Task name</label>
@@ -34,7 +34,6 @@ function modalTask() {
 				
 			</section>
 			<section class = 'modal-lower'>
-				<button type = 'button' class = 'cancel-task-btn'>Cancel</button>
 				<button type = 'submit' class = 'add-task-btn'>Add Task</button>
 			</section>
 		</form>
@@ -74,6 +73,14 @@ function taskForm(tasks) {
 	});
 }
 
+function openModal() {
+	const modal = document.getElementById('modalTask');
+	modal.showModal();
+}
 
+function closeModal() {
+	const modal = document.getElementById('modalTask');
+	modal.close();
+}
 
 export { modalTask, labelSelection, taskForm };

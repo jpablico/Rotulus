@@ -15,6 +15,13 @@
 
 		.modal-upper {
 			@include flex(row, space-between, column);
+
+			.cancel-task-btn {
+				cursor: pointer;
+				&:hover {
+					color: red;
+				}
+			}
 		}
 	
 		.modal-middle {

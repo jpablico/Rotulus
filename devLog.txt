@@ -1,2 +1,5 @@
 10.18.24 - Restarting Todo list web app. Basic setup is created. Working on Task modal for now. 
 	- Tasks now push into the tasks array.
+	- Created modal open and close. Probably rework to be a single function.
+	- Header.js created.
+	- SASS

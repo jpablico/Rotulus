@@ -5,7 +5,7 @@ import { createRoot } from 'react-dom/client';
 
 
 import { modalTask, labelSelection, taskForm } from './components/Modal.js';
-import { labels, tasks } from './data/data.js';
+import { labels, tasks  } from './data/data.js';
 
 
 const container = document.getElementById('app');
