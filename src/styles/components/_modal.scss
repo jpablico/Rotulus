@@ -10,6 +10,7 @@
 	border: none;
 	width: $width;
 
+	// General form styling for modals
 	.modal-form {
 		@include flex(column, flex-start, none);
 		gap: 0.5rem;
@@ -42,9 +43,67 @@
 }
 
 #modalTask {
-	@include modal-common-styles();
+	@include modal-common-styles(25%);
+
+	.task-modal-form {
+		@include flex(column, flex-start, none);
+		gap: 0.5rem;
+
+		.modal-upper {
+			@include flex(row, space-between, center);
+
+			.cancel-task-btn {
+				cursor: pointer;
+				&:hover {
+					color: red;
+				}
+			}
+		}
+
+		.modal-middle {
+			@include flex(column, flex-start, none);
+		}
+
+		.modal-lower {
+			@include flex(row, space-between, none);
+			gap: 0.2rem;
+
+			.add-task-btn {
+				flex: 1;
+			}
+		}
+	}
 }
 
 #modalLabel {
 	@include modal-common-styles(25%);
+
+	.label-modal-form {
+		@include flex(column, flex-start, none);
+		gap: 0.5rem;
+
+		.modal-upper {
+			@include flex(row, space-between, center);
+
+			.cancel-task-btn {
+				cursor: pointer;
+				&:hover {
+					color: red;
+				}
+			}
+		}
+
+		.modal-middle {
+			@include flex(column, flex-start, none);
+		}
+
+		.modal-lower {
+			@include flex(row, space-between, none);
+			gap: 0.2rem;
+
+			.add-label-btn {
+				flex: 1;
+			}
+		}
+	}
 }

@@ -4,3 +4,10 @@
 	- Header.js created.
 	- SASS
 10.19.24 - Need to work on Label task and modals. But the header needs to be made first to refine the open and close modals functions.
+	- Reworked index to properly, ran into some loading issues / initialization.
+	- Reworked the modals, needed to change class names that caused issues since I was reusing the same one.
+	- Adjusted SCSS to reflect changes.
+	- Header
+		- Added account info and styling.
+		- Now working on showing labels and e.listeners for buttons.
+		- Need to rework populateHeaderNav. The function updateComponent needs to be defined.

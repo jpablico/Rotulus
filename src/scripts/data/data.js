@@ -1,7 +1,13 @@
-const labels = [
+const labelsPermanent = [
 	{ Label: 'All' },
 	{ Label: 'Completed' },
 	{ Label: 'Overdue' }
+];
+
+const labelsRemovable = [
+	{ Label: 'Work' },
+	{ Label: 'Personal' },
+	{ Label: 'Shopping' }
 ];
 
 const tasks = [
@@ -28,4 +34,4 @@ const tasks = [
 	}
 ];
 
-export { labels, tasks };
+export { labelsPermanent, labelsRemovable, tasks };

@@ -5,46 +5,52 @@ function modalTask() {
 	const dialog = document.createElement('dialog');
 	dialog.id = 'modalTask';
 	dialog.innerHTML = `
-		<form class = 'modal-form'>
-			<section class ='modal-upper'>
+		<form class='task-modal-form'>
+			<section class='modal-upper'>
 				<h3 class='modal-task-title'>Add Task</h3>
-				<span class='material-symbols-outlined cancel-task-btn' >close</span>
+				<span class='material-symbols-outlined cancel-task-btn'>close</span>
 			</section>
-			<section class = 'modal-middle'>
-				<label for = 'task'>Task name</label>
-				<input type = 'text' id = 'task' name = 'task' required>
+			<section class='modal-middle'>
+				<label for='task'>Task name</label>
+				<input type='text' id='task' name='task' required>
 
-				<label for = 'description'>Description</label>
-				<textarea id = 'description' name = 'description' required></textarea>
+				<label for='description'>Description</label>
+				<textarea id='description' name='description' required></textarea>
 
-				<label for = 'date'>Due date</label>
-				<input type = 'date' id = 'date' name = 'date' required>
+				<label for='date'>Due date</label>
+				<input type='date' id='date' name='date' required>
 
-				<label for = 'priority'>Priority</label>
-				<select id = 'priority' name = 'priority' required>
-					<option value = 'low'>Low</option>
-					<option value = 'medium'>Medium</option>
-					<option value = 'high'>High</option>
+				<label for='priority'>Priority</label>
+				<select id='priority' name='priority' required>
+					<option value='low'>Low</option>
+					<option value='medium'>Medium</option>
+					<option value='high'>High</option>
 				</select>
 
-				<label for = 'label'>Label</label>
-				<select id = 'label' name = 'label' required>
+				<label for='taskLabel'>Label</label>
+				<select id='taskLabel' name='taskLabel' required>
 					<!-- Label selection will be inserted here -->
 				</select>
 				
 			</section>
-			<section class = 'modal-lower'>
-				<button type = 'submit' class = 'add-task-btn'>Add Task</button>
+			<section class='modal-lower'>
+				<button type='submit' class='add-task-btn'>Add Task</button>
 			</section>
 		</form>
 	`;
 	document.body.appendChild(dialog);
 }
 
-function labelSelection(labels) {
-	const labelSelect = document.getElementById('label');
+function labelSelection(labelsPermanent, labelsRemovable) {
+	const labelSelect = document.getElementById('taskLabel');
 	labelSelect.innerHTML = '';
-	labels.forEach(label => {
+	labelsPermanent.forEach(label => {
+		const option = document.createElement('option');
+		option.value = label.Label;
+		option.textContent = label.Label;
+		labelSelect.appendChild(option);
+	});
+	labelsRemovable.forEach(label => {
 		const option = document.createElement('option');
 		option.value = label.Label;
 		option.textContent = label.Label;
@@ -53,14 +59,14 @@ function labelSelection(labels) {
 }
 
 function taskForm(tasks) {
-	const form = document.querySelector('.modal-form');
+	const form = document.querySelector('.task-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const task = document.getElementById('task').value;
 		const description = document.getElementById('description').value;
 		const date = document.getElementById('date').value;
 		const priority = document.getElementById('priority').value;
-		const label = document.getElementById('label').value;
+		const label = document.getElementById('taskLabel').value;
 
 		tasks.push({
 			name: task,
@@ -73,35 +79,55 @@ function taskForm(tasks) {
 	});
 }
 
-function modalLabel() {
+function modalLabel(labelsRemovable, callback) {
 	const dialog = document.createElement('dialog');
 	dialog.id = 'modalLabel';
 	dialog.innerHTML = `
-		<form class = 'modal-form'>	
-			<section class ='modal-upper'>
-				<h3 class='modal-task-title'>Add Label</h3>
-				<span class='material-symbols-outlined cancel-task-btn' >close</span>
-			</section>
-			<section class = 'modal-middle'>
-				<label for = 'label'>Label name</label>
-				<input type = 'text' id = 'label' name = 'label' required>
-			</section>
-			<section class = 'modal-lower'>
-				<button type = 'submit' class = 'add-label-btn'>Add Label</button>
-		</form>
+	  <form class='label-modal-form'>  
+		<section class='modal-upper'>
+		  <h3 class='modal-task-title'>Add Label</h3>
+		  <span class='material-symbols-outlined cancel-task-btn'>close</span>
+		</section>
+		<section class='modal-middle'>
+		  <label for='newLabel'>Label name</label>
+		  <input type='text' id='newLabel' name='newLabel' required>
+		</section>
+		<section class='modal-lower'>
+		  <button type='submit' class='add-label-btn'>Add Label</button>
+		</section>
+	  </form>
 	`;
+	
 	document.body.appendChild(dialog);
-}
+  
+	// Add the form submission listener after the dialog is appended
+	const form = dialog.querySelector('.label-modal-form');
+	if (form) {
+	  form.addEventListener('submit', function(event) {
+		event.preventDefault();
+		const label = document.getElementById('newLabel').value;
+		labelsRemovable.push({
+		  Label: label
+		});
+		console.log(labelsRemovable);
+	  });
+	}
+  
+	// Call the callback to indicate that the modal has been appended
+	if (callback) {
+	  callback();
+	}
+  }
 
-function labelForm(labels) {
-	const form = document.querySelector('.modal-form');
+function labelForm(labelsRemovable) {
+	const form = document.querySelector('.label-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
-		const label = document.getElementById('label').value;
-		labels.push({
+		const label = document.getElementById('newLabel').value;
+		labelsRemovable.push({
 			Label: label
 		});
-		console.log(labels);
+		console.log(labelsRemovable);
 	});
 }
 
