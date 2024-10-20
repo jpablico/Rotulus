@@ -86,7 +86,7 @@ function modalLabel(labelsRemovable, callback) {
 	  <form class='label-modal-form'>  
 		<section class='modal-upper'>
 		  <h3 class='modal-task-title'>Add Label</h3>
-		  <span class='material-symbols-outlined cancel-task-btn'>close</span>
+		  <span class='material-symbols-outlined cancel-label-btn'>close</span>
 		</section>
 		<section class='modal-middle'>
 		  <label for='newLabel'>Label name</label>
@@ -112,8 +112,7 @@ function modalLabel(labelsRemovable, callback) {
 		console.log(labelsRemovable);
 	  });
 	}
-  
-	// Call the callback to indicate that the modal has been appended
+
 	if (callback) {
 	  callback();
 	}
@@ -131,14 +130,30 @@ function labelForm(labelsRemovable) {
 	});
 }
 
-function openModal() {
-	const modal = document.getElementById('modalTask');
-	modal.showModal();
+function openModals() {
+	document.body.addEventListener('click', (event) => {
+		const target = event.target;
+		if (target.id === 'addTaskButton') {
+			const modalTask = document.getElementById('modalTask');
+			modalTask.showModal();
+		} else if (target.id === 'addLabelButton') {
+			const modalLabel = document.getElementById('modalLabel');
+			modalLabel.showModal();
+		}
+	});
 }
 
-function closeModal() {
-	const modal = document.getElementById('modalTask');
-	modal.close();
+function closeModals() {
+	document.body.addEventListener('click', (event) => {
+		const target = event.target;
+		if (target.classList.contains('cancel-task-btn')) {
+			const modalTask = document.getElementById('modalTask');
+			modalTask.close();
+		} else if (target.classList.contains('cancel-label-btn')) {
+			const modalLabel = document.getElementById('modalLabel');
+			modalLabel.close();
+		}
+	});
 }
 
-export { modalTask, labelSelection, taskForm, modalLabel, labelForm, openModal, closeModal };
+export { modalTask, labelSelection, taskForm, modalLabel, labelForm, openModals, closeModals };

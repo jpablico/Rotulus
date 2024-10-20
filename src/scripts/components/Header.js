@@ -1,6 +1,9 @@
 import React from "react";
 import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
+import { labelsPermanent, tasks } from '../data/data.js';
+import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
+let labelsRemovable = [...importedLabelsRemovable];
 
 function Header() {
 	return <header id = 'header-container'>
@@ -27,72 +30,65 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	  console.error("No element with class 'header-nav-list' found.");
 	  return;
 	}
-  
-	// Clear existing items in headerNavList before repopulating
 	headerNavList.innerHTML = '';
   
-	// Helper function to create list item
-	function createListItem(label, isRemovable) {
-	  const li = document.createElement('li');
-	  li.textContent = label.Label;
-	  li.classList.add('nav-item');
-	  li.dataset.label = label.Label;
-  
-	  if (isRemovable) {
-		const removeBtn = document.createElement('span');
-		removeBtn.classList.add('material-symbols-outlined');
-		removeBtn.textContent = 'close';
-		removeBtn.addEventListener('click', (event) => {
-		  event.stopPropagation(); // Prevent list item click event
-		  removeItem(label.Label); // Remove item from array and update the list
-		});
-		li.appendChild(removeBtn);
-	  }
-  
-	  li.addEventListener('click', (event) => {
-		event.preventDefault();
-		// Remove 'active' class from all items and add it to the clicked item
-		document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-		li.classList.add('active');
-		if (updateComponent) {
-		  updateComponent(label.Label); // Call updateComponent to handle the label change
-		}
-		li.blur();
-	  });
-  
-	  return li;
-	}
-  
-	// Populate permanent items
 	labelsPermanent.forEach((label, index) => {
 	  const li = createListItem(label, false);
 	  headerNavList.appendChild(li);
   
-	  // Set the first item as active by default
 	  if (index === 0) {
 		li.classList.add('active');
-		if (updateComponent) {
-		  updateComponent(label.Label);
-		}
+		updateUI(label.Label);
 	  }
 	});
   
-	// Add a horizontal line to separate permanent and removable labels
 	const hzLine = document.createElement('hr');
+	hzLine.classList.add('nav-divider');
 	headerNavList.appendChild(hzLine);
   
-	// Populate removable items
 	labelsRemovable.forEach((label) => {
 	  const li = createListItem(label, true);
 	  headerNavList.appendChild(li);
 	});
   }
+  
+  function createListItem(label, isRemovable) {
+	const li = document.createElement('li');
+	li.textContent = label.Label;
+	li.classList.add('nav-item');
+	li.dataset.label = label.Label;
+  
+	if (isRemovable) {
+	  const removeBtn = document.createElement('span');
+	  removeBtn.classList.add('material-symbols-outlined');
+	  removeBtn.textContent = 'close';
+	  removeBtn.addEventListener('click', (event) => {
+		event.stopPropagation();
+		removeItem(label.Label);
+	  });
+	  li.appendChild(removeBtn);
+	}
+  
+	li.addEventListener('click', (event) => {
+	  event.preventDefault();
+	  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+	  li.classList.add('active');
+	  updateUI(label.Label);
+	  li.blur();
+	});
+  
+	return li;
+  }
+  
+  function updateUI(label) {
+	console.log(`UI updated to show tasks with label: ${label}`);
+	// Additional logic to update the UI
+  }
+  
+  function removeItem(label) {
 
-function removeItem(label) {
-	// Remove the item from the labelsRemovable array
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
-	// Repopulate the header nav list to reflect changes
 	populateHeaderNav(labelsPermanent, labelsRemovable);
-}
+  }
 
-export { Header, populateHeaderNav, removeItem}; // Export updateComponent and removeItem
+export { Header, populateHeaderNav}; 

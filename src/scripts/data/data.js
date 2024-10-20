@@ -4,13 +4,13 @@ const labelsPermanent = [
 	{ Label: 'Overdue' }
 ];
 
-const labelsRemovable = [
+let labelsRemovable = [
 	{ Label: 'Work' },
 	{ Label: 'Personal' },
 	{ Label: 'Shopping' }
 ];
 
-const tasks = [
+let tasks = [
 	{
 		name: 'Complete Rotulus app',
 		description: 'Finish the Rotulus app by the end of the week',

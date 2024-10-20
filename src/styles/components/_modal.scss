@@ -18,7 +18,8 @@
 		.modal-upper {
 			@include flex(row, space-between, center);
 
-			.cancel-task-btn {
+			.cancel-task-btn,
+			.cancel-label-btn {
 				cursor: pointer;
 				&:hover {
 					color: red;
@@ -85,7 +86,7 @@
 		.modal-upper {
 			@include flex(row, space-between, center);
 
-			.cancel-task-btn {
+			.cancel-label-btn {
 				cursor: pointer;
 				&:hover {
 					color: red;

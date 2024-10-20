@@ -42,16 +42,28 @@
 		}
 
 		.header-nav-list {
+			@include flex(column, flex-start, flex-start);
+			gap: .5rem;
+			width: 100%;
+
 			.nav-item {
+				@include flex(row, space-between, center);
 				@include text-size($font-size-body);
 				@include text-truncate();
 				cursor: pointer; // Add cursor pointer here
+				width: 100%;
 			}
 			.nav-item:hover {
 				color: white;
 			}
 			.active {
 				color: white !important;
+			}
+
+			.nav-divider {
+				height: 1px;
+				width: 100%;
+				background-color: $background-color;
 			}
 		}
 	

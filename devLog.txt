@@ -11,3 +11,10 @@
 		- Added account info and styling.
 		- Now working on showing labels and e.listeners for buttons.
 		- Need to rework populateHeaderNav. The function updateComponent needs to be defined.
+10.20.24 - Header now properly updates and populates navigation lists.
+	- Modals now open and close.
+	- Updated SCSS. 
+	- Need to work on updateUI
+		- updateUI will focus on the main container.
+		- Updates the container name with the label name.
+		- Populate tasks using filters.
