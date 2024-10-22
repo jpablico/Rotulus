@@ -2,6 +2,7 @@ import React from "react";
 import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
 import { labelsPermanent, tasks } from '../data/data.js';
+import { createTask } from "./Main.js";
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
 let labelsRemovable = [...importedLabelsRemovable];
 
@@ -82,9 +83,38 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
   
   function updateUI(label) {
 	console.log(`UI updated to show tasks with label: ${label}`);
-	// Additional logic to update the UI
+	const mainContainer = document.getElementById('main-container');
+	mainContainer.innerHTML = '';
+
+	const labelTitle = document.createElement('h1');
+	labelTitle.classList.add('label-title');
+	labelTitle.textContent = label;
+	mainContainer.appendChild(labelTitle);
+
+	updateTasks(label, mainContainer);
   }
-  
+
+  function updateTasks(label, mainContainer) {
+	console.log(`Tasks updated to show tasks with label: ${label}`);
+
+	const tasksContainer = document.createElement('div');
+	tasksContainer.classList.add('tasks-container');
+	tasksContainer.innerHTML = '';
+	mainContainer.appendChild(tasksContainer);
+
+	if (label === 'All') {
+	   console.log(tasks);
+	   createTask(tasks);
+	} else {
+		const filteredTasks = tasks.filter(task => {
+			return task.label === label});
+	
+			console.log(filteredTasks);
+			createTask(filteredTasks);
+		}
+	}
+
+
   function removeItem(label) {
 
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);

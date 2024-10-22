@@ -31,7 +31,22 @@ let tasks = [
 		date: '2024-10-28',
 		priority: 'Low',
 		label: 'All'
-	}
+	},
+	{
+		name: 'Learn Redux',
+		description: 'Study Redux for 1 hour',
+		date: '2024-10-28',
+		priority: 'Low',
+		label: 'Personal'
+	},
+	{
+		name: 'Go workout',
+		description: 'Workout for 1 hour',
+		date: '2024-10-28',
+		priority: 'Low',
+		label: 'Personal'
+	},
+
 ];
 
 export { labelsPermanent, labelsRemovable, tasks };

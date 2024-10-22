@@ -1,0 +1,35 @@
+@use '../global' as *;
+
+#main-container {
+	flex: 1;
+	width: 80vw;
+	height: auto;
+	background-color: #ececec;
+	border-radius: 10px 0 0 0;
+	color: $background-color;
+	padding: 1rem;
+	overflow: hidden;
+	box-shadow: -5px 0px 10px -5px #868686;
+
+	.main-label {
+		color: #868686;
+	}
+
+	.task-container {
+		@include flex(row, none, none);
+		gap: 1rem;
+		.task-item {
+			@include flex(column, none, none);
+			gap: .2rem;
+			padding: 1rem;
+			border-radius: 10px;
+			background-color: #f5f5f5;	
+
+			.task-name {
+				color: #555555;
+				font-weight: 600;
+			}
+		}
+		
+	}
+}

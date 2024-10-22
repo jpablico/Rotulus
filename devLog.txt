@@ -18,3 +18,11 @@
 		- updateUI will focus on the main container.
 		- Updates the container name with the label name.
 		- Populate tasks using filters.
+10.22.24 - Starting on main.js file.
+	- Main.js created and stylied.
+	- Tasks now populate the main container. Needs CSS.
+		- Add buttons to complete or delete tasks. 
+	- Need to update updateTasks() with more logic.
+		- Overdue should compare the current date and go through the array.
+		- Need to make another array for completed tasks. 
+	- Maybe also change how the delete button for labels show. Hover will show the delte button?
