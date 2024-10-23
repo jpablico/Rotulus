@@ -50,11 +50,21 @@
 				@include flex(row, space-between, center);
 				@include text-size($font-size-body);
 				@include text-truncate();
-				cursor: pointer; // Add cursor pointer here
+				cursor: pointer;
 				width: 100%;
+				
+				.remove-btn {
+					display: none; 
+				}
 			}
 			.nav-item:hover {
 				color: white;
+
+				.remove-btn {
+					display: block;
+					color: rgb(118, 1, 1);
+					cursor: pointer;
+				}
 			}
 			.active {
 				color: white !important;

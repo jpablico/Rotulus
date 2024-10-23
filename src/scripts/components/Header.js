@@ -62,6 +62,7 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	if (isRemovable) {
 	  const removeBtn = document.createElement('span');
 	  removeBtn.classList.add('material-symbols-outlined');
+	  removeBtn.classList.add('remove-btn');
 	  removeBtn.textContent = 'close';
 	  removeBtn.addEventListener('click', (event) => {
 		event.stopPropagation();

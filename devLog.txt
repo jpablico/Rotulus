@@ -26,3 +26,4 @@
 		- Overdue should compare the current date and go through the array.
 		- Need to make another array for completed tasks. 
 	- Maybe also change how the delete button for labels show. Hover will show the delte button?
+	- Added some style.

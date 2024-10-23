@@ -17,7 +17,7 @@ function createTask(array) {
 		const taskCard = document.createElement('div');
 		taskCard.classList.add('task-card');
 		taskCard.innerHTML = `
-			<h2>${element.name}</h2>
+			<h2 class = 'task-name'>${element.name}</h2>
 			<p>${element.description}</p>
 			<p>${element.date}</p>
 			<p>${element.priority}</p>
