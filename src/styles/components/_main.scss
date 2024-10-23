@@ -16,12 +16,16 @@
 	}
 
 	.tasks-container {
-		@include flex(row, none, none);
+		@include flex(row, none, flex-start);
+		flex-wrap: wrap;
 		gap: 1rem;
+		width: 100%;
+		
 		.task-card {
 			@include flex(column, none, none);
 			box-shadow: -5px 0px 10px -6px #868686;
 			width: 220px;
+			height: auto;
 			gap: .2rem;
 			padding: 1rem;
 			border-radius: 10px;
@@ -31,13 +35,62 @@
 				background-color: #ffffff;
 				transform: scale(1.04);
 			}
-			.task-name {
-				color: #a4a4a4;
-				font-weight: 600;
-				@include text-truncate();
-				font-size: $font-size-subheading*.7;
+
+			.task-upper {
+				@include flex(row, space-between, center);
+
+				.task-name {
+					color: #a4a4a4;
+					font-weight: 600;
+					@include text-truncate();
+					font-size: $font-size-small;
+				}
+
+				.task-chevron {
+					transform: rotate(180deg);
+				}
+
+				.task-chevron.expanded {
+					transform: rotate(0deg);
+				}
+			}
+			.task-middle {
+				// Empty
+			}
+			.task-lower {
+				@include flex(row, flex-end, center);
+				
+				.empty-btn {
+					&:hover {
+						color: #00ff7b;
+					}
+				}
 			}
 		}
 		
 	}
+
+	.task-card {
+		.task-description,
+		.task-date,
+		.task-priority {
+			display: none; // Initially hide the elements
+		}
+	
+		.task-chevron {
+			cursor: pointer;
+			transition: transform 0.3s ease;
+		}
+	
+		.task-description.expanded,
+		.task-date.expanded,
+		.task-priority.expanded {
+			display: block; // Show the elements when expanded
+		}
+
+		.task-chevron .expanded {
+			transform: rotate(0deg); // Rotate chevron when expanded
+		}
+	}
+	
 }

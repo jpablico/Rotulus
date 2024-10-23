@@ -46,7 +46,34 @@ let tasks = [
 		priority: 'Low',
 		label: 'Personal'
 	},
-
+	{
+		name: 'Buy groceries',
+		description: 'Buy milk, eggs, and bread',
+		date: '2024-10-29',
+		priority: 'Medium',
+		label: 'Shopping'
+	},
+	{
+		name: 'Prepare presentation',
+		description: 'Prepare slides for the Monday meeting',
+		date: '2024-10-30',
+		priority: 'High',
+		label: 'Work'
+	},
+	{
+		name: 'Read a book',
+		description: 'Read 20 pages of a novel',
+		date: '2024-10-31',
+		priority: 'Low',
+		label: 'Personal'
+	},
+	{
+		name: 'Clean the house',
+		description: 'Vacuum and dust all rooms',
+		date: '2024-10-31',
+		priority: 'Medium',
+		label: 'Personal'
+	}
 ];
 
 export { labelsPermanent, labelsRemovable, tasks };

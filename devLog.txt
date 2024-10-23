@@ -27,3 +27,11 @@
 		- Need to make another array for completed tasks. 
 	- Maybe also change how the delete button for labels show. Hover will show the delte button?
 	- Added some style.
+10.23.24 - Started working on task cards styling. 
+	- Might re-structure the task cards. 
+		- Re-structured
+	- Tasks container 
+		- Adjusted SCSS to allow wraping. 
+	- Need to create a function to push completed tasks to a new array. 
+	- Need to create a fuction to filter the tasks array for overdue tasks.
+	
