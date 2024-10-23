@@ -24,17 +24,17 @@ function createTask(array) {
 			<div class = 'task-middle'>
 				<p class = 'task-description'>${element.description}</p>
 				<p class = 'task-date'>${element.date}</p>
-				<p class = 'task-priority'>${element.priority}</p>
+				<p class = 'task-priority task-priority-${element.priority}'>${element.priority}</p>
 			</div>
 			<div class = 'task-lower'>
-				<span class='material-symbols-outlined empty-btn'>radio_button_unchecked</span>
+				<span class='material-symbols-outlined cancel-btn'>cancel</span>
+				<span class='material-symbols-outlined check-btn'>check_circle</span>
 			</div> 
 		`;
 		tasksContainer.appendChild(taskCard);
 		const chevron = taskCard.querySelector('.task-chevron');
 		chevron.addEventListener('click', (event) => {
 			expandTask(taskCard);
-			console.log(taskCard);
     });
 	});
 }

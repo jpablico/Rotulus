@@ -73,7 +73,24 @@ let tasks = [
 		date: '2024-10-31',
 		priority: 'Medium',
 		label: 'Personal'
+	},
+	{
+		name: 'Test overdue task',
+		description: 'Date is in the past',
+		date: '2024-09-31',
+		priority: 'Medium',
+		label: 'Personal'
 	}
 ];
 
-export { labelsPermanent, labelsRemovable, tasks };
+let tasksCompleted = [
+	{
+		name: 'Write a test task',
+		description: 'Create a fake task to test the app',
+		date: '2024-10-28',
+		priority: 'High',
+		label: 'Completed'
+	}
+];
+
+export { labelsPermanent, labelsRemovable, tasks, tasksCompleted };

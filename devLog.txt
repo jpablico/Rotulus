@@ -33,5 +33,8 @@
 	- Tasks container 
 		- Adjusted SCSS to allow wraping. 
 	- Need to create a function to push completed tasks to a new array. 
+		- Updated logic for showing completed tasks.
+			- Completed tasks are now in a new object array for efficiency. 
+		- Need to finish pushing completed tasks.
 	- Need to create a fuction to filter the tasks array for overdue tasks.
-	
+		- Updated logic for showing overdue tasks.

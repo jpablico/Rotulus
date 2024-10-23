@@ -1,7 +1,7 @@
 import React from "react";
 import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
-import { labelsPermanent, tasks } from '../data/data.js';
+import { labelsPermanent, tasks, tasksCompleted } from '../data/data.js';
 import { createTask } from "./Main.js";
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
 let labelsRemovable = [...importedLabelsRemovable];
@@ -106,18 +106,23 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	if (label === 'All') {
 	   console.log(tasks);
 	   createTask(tasks);
+	} else if (label === 'Overdue') {
+		const filteredTasks = tasks.filter(task => {
+			const taskDate = new Date(task.date);
+			const today = new Date();
+			return taskDate < today;
+		});
+		createTask(filteredTasks);
+	} else if (label === 'Completed') {
+		createTask(tasksCompleted);
 	} else {
 		const filteredTasks = tasks.filter(task => {
 			return task.label === label});
-	
-			console.log(filteredTasks);
 			createTask(filteredTasks);
 		}
 	}
 
-
   function removeItem(label) {
-
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
 	populateHeaderNav(labelsPermanent, labelsRemovable);
   }
