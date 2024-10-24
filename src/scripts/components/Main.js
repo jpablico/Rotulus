@@ -1,11 +1,12 @@
 import React from "react";
 import '../../styles/style.scss';
+import { labelsPermanent, labelsRemovable, tasksCompleted, tasks } from '../data/data.js';
+import { populateHeaderNav } from "./Header.js";
 
 function Main() {
   return (
 	<main id = 'main-container'>
 	
-
 	</main>
   );
 }
@@ -32,10 +33,21 @@ function createTask(array) {
 			</div> 
 		`;
 		tasksContainer.appendChild(taskCard);
+
 		const chevron = taskCard.querySelector('.task-chevron');
 		chevron.addEventListener('click', (event) => {
 			expandTask(taskCard);
-    });
+   		 });
+
+		const cancelBtn = taskCard.querySelector('.cancel-btn');
+		cancelBtn.addEventListener('click', () => {
+			removeTasks(element.name);
+		});
+	
+		const checkBtn = taskCard.querySelector('.check-btn');
+		checkBtn.addEventListener('click', () => {
+			completeTasks(element.name); 
+		});
 	});
 }
 
@@ -50,4 +62,25 @@ function expandTask(taskCard) {
 	taskChevron.classList.toggle('expanded');
 }
 
-export { Main, createTask };
+
+function completeTasks(taskName) {
+	tasks.forEach((task, index) => {
+		if (task.name === taskName) {
+			task.label = 'Completed'; 
+			tasksCompleted.push(task);
+			tasks.splice(index, 1);
+		}
+	});
+	populateHeaderNav(labelsPermanent, labelsRemovable);
+	
+}
+function removeTasks(taskName) {
+	tasksCompleted.forEach((task, index) => {
+		if (task.name === taskName) {
+			tasksCompleted.splice(index, 1); 
+		}
+	});
+	populateHeaderNav(labelsPermanent, labelsRemovable)
+}
+
+export { Main, createTask, completeTasks};

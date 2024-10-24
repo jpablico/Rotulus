@@ -1,7 +1,7 @@
 @use '../global.scss' as *;
 
 #header-container {
-	width: 20vw;
+	width: 15vw;
 	.header-account-wrapper {
 		@include flex(row, flex-start, center);
 		gap: .8rem;

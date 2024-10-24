@@ -53,37 +53,36 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	});
   }
   
-  function createListItem(label, isRemovable) {
+function createListItem(label, isRemovable) {
 	const li = document.createElement('li');
 	li.textContent = label.Label;
 	li.classList.add('nav-item');
 	li.dataset.label = label.Label;
-  
+
 	if (isRemovable) {
-	  const removeBtn = document.createElement('span');
-	  removeBtn.classList.add('material-symbols-outlined');
-	  removeBtn.classList.add('remove-btn');
-	  removeBtn.textContent = 'close';
-	  removeBtn.addEventListener('click', (event) => {
+		const removeBtn = document.createElement('span');
+		removeBtn.classList.add('material-symbols-outlined');
+		removeBtn.classList.add('remove-btn');
+		removeBtn.textContent = 'close';
+		removeBtn.addEventListener('click', (event) => {
 		event.stopPropagation();
 		removeItem(label.Label);
-	  });
-	  li.appendChild(removeBtn);
+		});
+		li.appendChild(removeBtn);
 	}
-  
+
 	li.addEventListener('click', (event) => {
-	  event.preventDefault();
-	  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-	  li.classList.add('active');
-	  updateUI(label.Label);
-	  li.blur();
+		event.preventDefault();
+		document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+		li.classList.add('active');
+		updateUI(label.Label);
+		li.blur();
 	});
-  
+
 	return li;
-  }
+}
   
-  function updateUI(label) {
-	console.log(`UI updated to show tasks with label: ${label}`);
+function updateUI(label) {
 	const mainContainer = document.getElementById('main-container');
 	mainContainer.innerHTML = '';
 
@@ -93,19 +92,17 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	mainContainer.appendChild(labelTitle);
 
 	updateTasks(label, mainContainer);
-  }
+}
 
-  function updateTasks(label, mainContainer) {
-	console.log(`Tasks updated to show tasks with label: ${label}`);
-
+function updateTasks(label, mainContainer) {
 	const tasksContainer = document.createElement('div');
 	tasksContainer.classList.add('tasks-container');
 	tasksContainer.innerHTML = '';
 	mainContainer.appendChild(tasksContainer);
 
 	if (label === 'All') {
-	   console.log(tasks);
-	   createTask(tasks);
+		console.log(tasks);
+		createTask(tasks);
 	} else if (label === 'Overdue') {
 		const filteredTasks = tasks.filter(task => {
 			const taskDate = new Date(task.date);
@@ -120,11 +117,11 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 			return task.label === label});
 			createTask(filteredTasks);
 		}
-	}
+}
 
-  function removeItem(label) {
+function removeItem(label) {
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
 	populateHeaderNav(labelsPermanent, labelsRemovable);
-  }
+}
 
-export { Header, populateHeaderNav}; 
+export { Header, populateHeaderNav};

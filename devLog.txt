@@ -38,3 +38,5 @@
 		- Need to finish pushing completed tasks.
 	- Need to create a fuction to filter the tasks array for overdue tasks.
 		- Updated logic for showing overdue tasks.
+	- Completed the rest of the logic. Tasks cards now have proper logic for complete/delete and ui updates..
+	- Add local storage and upload project. 
