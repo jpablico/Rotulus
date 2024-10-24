@@ -46,4 +46,5 @@
 	- Completed the rest of the logic. Tasks cards now have proper logic for complete/delete and ui updates..
 	- Add local storage and upload project. 
 10.24.24
-	- 
+	- Added local storage.
+	- Project completed!
