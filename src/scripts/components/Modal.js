@@ -1,5 +1,6 @@
 import React from 'react';
 import '../../styles/style.scss';
+import { saveTasksToLocalStorage } from '../data/storage';
 
 function modalTask() {
 	const dialog = document.createElement('dialog');
@@ -75,7 +76,7 @@ function taskForm(tasks) {
 			priority: priority,
 			label: label
 		});
-		console.log(tasks);
+		saveTasksToLocalStorage(tasks);
 	});
 }
 
@@ -100,7 +101,6 @@ function modalLabel(labelsRemovable, callback) {
 	
 	document.body.appendChild(dialog);
   
-	// Add the form submission listener after the dialog is appended
 	const form = dialog.querySelector('.label-modal-form');
 	if (form) {
 	  form.addEventListener('submit', function(event) {
@@ -109,7 +109,8 @@ function modalLabel(labelsRemovable, callback) {
 		labelsRemovable.push({
 		  Label: label
 		});
-		console.log(labelsRemovable);
+		saveLabelsToLocalStorage(labelsRemovable, labelsPermanent);
+    	dialog.close();
 	  });
 	}
 

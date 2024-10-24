@@ -3,6 +3,7 @@ import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
 import { labelsPermanent, tasks, tasksCompleted } from '../data/data.js';
 import { createTask } from "./Main.js";
+import { saveLabelsToLocalStorage } from "../data/storage.js";
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
 let labelsRemovable = [...importedLabelsRemovable];
 
@@ -121,6 +122,7 @@ function updateTasks(label, mainContainer) {
 
 function removeItem(label) {
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
+	saveLabelsToLocalStorage(labelsPermanent, labelsRemovable);
 	populateHeaderNav(labelsPermanent, labelsRemovable);
 }
 
