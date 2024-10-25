@@ -2,8 +2,8 @@ import '../styles/style.scss';
 import React, { useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import { modalTask, labelSelection, taskForm, modalLabel, openModals, closeModals } from './components/Modal.js';
-import { labelsPermanent as defaultLabelsPermanent, labelsRemovable as defaultLabelsRemovable, tasks, tasksCompleted } from './data/data.js';
-import { Header, populateHeaderNav } from './components/Header.js';
+import { labelsPermanent as defaultLabelsPermanent, labelsPermanent, tasksCompleted, tasks } from './data/data.js';
+import { Header, populateHeaderNav, updateTasks } from './components/Header.js';
 import { Main } from './components/Main.js';
 import { loadLabelsFromLocalStorage, loadTasksFromLocalStorage, loadCompletedTasksFromLocalStorage, saveLabelsToLocalStorage } from './data/storage.js';
 
@@ -12,22 +12,22 @@ const App = () => {
 
     const tasksFromStorage = loadTasksFromLocalStorage();
     const completedTasksFromStorage = loadCompletedTasksFromLocalStorage();
+    const { labelsRemovable } = loadLabelsFromLocalStorage();
 
-    const { labelsPermanent, labelsRemovable } = loadLabelsFromLocalStorage();
-    const updatedLabelsPermanent = labelsPermanent.length ? labelsPermanent : defaultLabelsPermanent;
-    const updatedLabelsRemovable = labelsRemovable.length ? labelsRemovable : defaultLabelsRemovable;
-
+    const combinedTasks = [...tasks, ...tasksFromStorage];
+    
     tasksCompleted.splice(0, tasksCompleted.length, ...completedTasksFromStorage);
 
     modalTask();
-    modalLabel(updatedLabelsRemovable);
-    labelSelection(updatedLabelsPermanent, updatedLabelsRemovable);
-    taskForm(tasksFromStorage);
-
-    populateHeaderNav(updatedLabelsPermanent, updatedLabelsRemovable);
+    modalLabel(labelsRemovable);
+    taskForm(combinedTasks);
+    updateTasks('All', combinedTasks);
+    labelSelection(labelsPermanent, labelsRemovable);
+    populateHeaderNav(labelsPermanent, labelsRemovable, combinedTasks);
 
     openModals();
     closeModals();
+
   }, []); 
 
   return (

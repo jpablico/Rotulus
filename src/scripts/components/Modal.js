@@ -1,6 +1,9 @@
 import React from 'react';
 import '../../styles/style.scss';
-import { saveTasksToLocalStorage } from '../data/storage';
+import { saveTasksToLocalStorage, saveLabelsToLocalStorage } from '../data/storage';
+import { labelsPermanent } from '../data/data';
+import { populateHeaderNav, updateTasks } from './Header';
+import { createTask } from './Main';
 
 function modalTask() {
 	const dialog = document.createElement('dialog');
@@ -59,7 +62,7 @@ function labelSelection(labelsPermanent, labelsRemovable) {
 	});
 }
 
-function taskForm(tasks) {
+function taskForm(combinedTasks) {
 	const form = document.querySelector('.task-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
@@ -69,14 +72,18 @@ function taskForm(tasks) {
 		const priority = document.getElementById('priority').value;
 		const label = document.getElementById('taskLabel').value;
 
-		tasks.push({
+		combinedTasks.push({
 			name: task,
 			description: description,
 			date: date,
 			priority: priority,
 			label: label
 		});
-		saveTasksToLocalStorage(tasks);
+		saveTasksToLocalStorage(combinedTasks);
+		const modalTask = document.getElementById('modalTask');
+		modalTask.close();
+		updateTasks('All', document.getElementById('main-container'), combinedTasks);
+		createTask(combinedTasks);
 	});
 }
 
@@ -109,15 +116,18 @@ function modalLabel(labelsRemovable, callback) {
 		labelsRemovable.push({
 		  Label: label
 		});
-		saveLabelsToLocalStorage(labelsRemovable, labelsPermanent);
-    	dialog.close();
+		saveLabelsToLocalStorage(labelsRemovable);
+    	labelSelection(labelsPermanent, labelsRemovable);
+		populateHeaderNav(labelsPermanent, labelsRemovable);
+		dialog.close();
 	  });
 	}
 
 	if (callback) {
 	  callback();
 	}
-  }
+}
+
 
 function labelForm(labelsRemovable) {
 	const form = document.querySelector('.label-modal-form');
@@ -127,7 +137,6 @@ function labelForm(labelsRemovable) {
 		labelsRemovable.push({
 			Label: label
 		});
-		console.log(labelsRemovable);
 	});
 }
 

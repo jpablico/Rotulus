@@ -3,7 +3,7 @@ import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
 import { labelsPermanent, tasks, tasksCompleted } from '../data/data.js';
 import { createTask } from "./Main.js";
-import { saveLabelsToLocalStorage } from "../data/storage.js";
+import { saveLabelsToLocalStorage, loadTasksFromLocalStorage } from "../data/storage.js";
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
 let labelsRemovable = [...importedLabelsRemovable];
 
@@ -52,7 +52,7 @@ function populateHeaderNav(labelsPermanent, labelsRemovable) {
 	  const li = createListItem(label, true);
 	  headerNavList.appendChild(li);
 	});
-  }
+}
   
 function createListItem(label, isRemovable) {
 	const li = document.createElement('li');
@@ -66,8 +66,8 @@ function createListItem(label, isRemovable) {
 		removeBtn.classList.add('remove-btn');
 		removeBtn.textContent = 'close';
 		removeBtn.addEventListener('click', (event) => {
-		event.stopPropagation();
-		removeItem(label.Label);
+			event.stopPropagation();
+			removeItem(label.Label);
 		});
 		li.appendChild(removeBtn);
 	}
@@ -92,38 +92,44 @@ function updateUI(label) {
 	labelTitle.textContent = label;
 	mainContainer.appendChild(labelTitle);
 
-	updateTasks(label, mainContainer);
+	const tasksFromStorage = loadTasksFromLocalStorage();
+    const combinedTasks = [...tasks, ...tasksFromStorage];  
+	updateTasks(label, mainContainer, combinedTasks);
 }
 
-function updateTasks(label, mainContainer) {
-	const tasksContainer = document.createElement('div');
-	tasksContainer.classList.add('tasks-container');
-	tasksContainer.innerHTML = '';
-	mainContainer.appendChild(tasksContainer);
+function updateTasks(label, mainContainer, combinedTasks) {
+    mainContainer = document.getElementById('main-container');
+    if (!mainContainer || !(mainContainer instanceof HTMLElement)) {
+        console.error('mainContainer is not a valid HTML element.');
+        return;
+    }
 
-	if (label === 'All') {
-		console.log(tasks);
-		createTask(tasks);
-	} else if (label === 'Overdue') {
-		const filteredTasks = tasks.filter(task => {
-			const taskDate = new Date(task.date);
-			const today = new Date();
-			return taskDate < today;
-		});
-		createTask(filteredTasks);
-	} else if (label === 'Completed') {
-		createTask(tasksCompleted);
-	} else {
-		const filteredTasks = tasks.filter(task => {
-			return task.label === label});
-			createTask(filteredTasks);
-		}
+    const tasksContainer = document.createElement('div');
+    tasksContainer.classList.add('tasks-container');
+    tasksContainer.innerHTML = '';
+    mainContainer.appendChild(tasksContainer);
+
+    if (label === 'All') {
+        createTask(combinedTasks); 
+    } else if (label === 'Overdue') {
+        const filteredTasks = combinedTasks.filter(task => {
+            const taskDate = new Date(task.date);
+            const today = new Date();
+            return taskDate < today;
+        });
+        createTask(filteredTasks);
+    } else if (label === 'Completed') {
+        createTask(tasksCompleted);
+    } else {
+        const filteredTasks = combinedTasks.filter(task => task.label === label);
+        createTask(filteredTasks);
+    }
 }
 
 function removeItem(label) {
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
-	saveLabelsToLocalStorage(labelsPermanent, labelsRemovable);
+	saveLabelsToLocalStorage(labelsRemovable);
 	populateHeaderNav(labelsPermanent, labelsRemovable);
 }
 
-export { Header, populateHeaderNav};
+export { Header, populateHeaderNav, updateTasks};

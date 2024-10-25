@@ -1,8 +1,8 @@
 import React from "react";
 import '../../styles/style.scss';
 import { labelsPermanent, labelsRemovable, tasksCompleted, tasks } from '../data/data.js';
-import { populateHeaderNav } from "./Header.js";
-import { saveTasksToLocalStorage, saveCompletedTasksToLocalStorage } from "../data/storage.js";
+import { populateHeaderNav, updateTasks } from "./Header.js";
+import { saveTasksToLocalStorage, saveCompletedTasksToLocalStorage, loadTasksFromLocalStorage } from "../data/storage.js";
 
 function Main() {
   return (
@@ -13,7 +13,9 @@ function Main() {
 }
 
 function createTask(array) {
+	array = array || [];
 	const tasksContainer = document.getElementsByClassName('tasks-container')[0];
+	tasksContainer.innerHTML = '';
 
 	array.forEach(element => {
 		const taskCard = document.createElement('div');
@@ -63,28 +65,44 @@ function expandTask(taskCard) {
 	taskChevron.classList.toggle('expanded');
 }
 
-
 function completeTasks(taskName) {
-	tasks.forEach((task, index) => {
-		if (task.name === taskName) {
-			task.label = 'Completed'; 
-			tasksCompleted.push(task);
-			tasks.splice(index, 1);
-		}
-	});
-	saveTasksToLocalStorage(tasks);
-	saveCompletedTasksToLocalStorage(tasksCompleted);
-	populateHeaderNav(labelsPermanent, labelsRemovable);
-	
-}
-function removeTasks(taskName) {
-	tasksCompleted.forEach((task, index) => {
-		if (task.name === taskName) {
-			tasksCompleted.splice(index, 1); 
-		}
-	});
-	saveCompletedTasksToLocalStorage(tasksCompleted);
-	populateHeaderNav(labelsPermanent, labelsRemovable)
+    let storedTasks = loadTasksFromLocalStorage();
+    let combinedTasks = [...tasks, ...storedTasks];  
+
+    let taskToComplete = combinedTasks.find(task => task.name === taskName);
+    if (taskToComplete) {
+        taskToComplete.label = 'Completed';  
+        tasksCompleted.push(taskToComplete);  
+
+        let updatedTasks = combinedTasks.filter(task => task.name !== taskName);
+
+        let newHardcodedTasks = updatedTasks.filter(task => tasks.some(t => t.name === task.name));
+        let newStoredTasks = updatedTasks.filter(task => !tasks.some(t => t.name === task.name));
+
+        tasks.splice(0, tasks.length, ...newHardcodedTasks);
+
+        saveTasksToLocalStorage(newStoredTasks);
+        saveCompletedTasksToLocalStorage(tasksCompleted);
+
+        updateTasks('All', document.getElementById('main-container'), updatedTasks);  
+        createTask(updatedTasks);  
+    }
 }
 
+function removeTasks(taskName) {
+    let storedTasks = loadTasksFromLocalStorage();
+    let combinedTasks = [...tasks, ...storedTasks];
+
+    let updatedTasks = combinedTasks.filter(task => task.name !== taskName);
+
+    let newHardcodedTasks = updatedTasks.filter(task => tasks.some(t => t.name === task.name));
+    let newStoredTasks = updatedTasks.filter(task => !tasks.some(t => t.name === task.name));
+
+    tasks.splice(0, tasks.length, ...newHardcodedTasks);
+
+    saveTasksToLocalStorage(newStoredTasks);
+
+    updateTasks('All', document.getElementById('main-container'), updatedTasks);  
+    createTask(updatedTasks);  
+}
 export { Main, createTask, completeTasks};

@@ -47,4 +47,8 @@
 	- Add local storage and upload project. 
 10.24.24
 	- Added local storage.
-	- Project completed!
+	- Local storage is adding complexity and needs to be debugged. 
+		- Arrays for tasks are being copied and now populating the DOM correctly. 
+		- Delete and Complete buttons are wonky. 
+		- Updating the UI is either repeating the same array or unresponsive.
+	- Solutions might include running a function once and then disabling it to populate the basic nav. Or have a differnt container for the removable labels.

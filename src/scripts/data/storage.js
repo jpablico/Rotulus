@@ -1,10 +1,10 @@
 function saveTasksToLocalStorage(tasks) {
 	localStorage.setItem('tasks', JSON.stringify(tasks));
+	console.log('tasks', tasks);
   }
   
 function saveLabelsToLocalStorage(labelsRemovable, labelsPermanent) {
 	localStorage.setItem('labelsRemovable', JSON.stringify(labelsRemovable));
-	localStorage.setItem('labelsPermanent', JSON.stringify(labelsPermanent));
 }
 
 function saveCompletedTasksToLocalStorage(tasksCompleted) {
@@ -19,11 +19,9 @@ function loadTasksFromLocalStorage() {
 
 function loadLabelsFromLocalStorage() {
 	const storedLabelsRemovable = localStorage.getItem('labelsRemovable');
-	const storedLabelsPermanent = localStorage.getItem('labelsPermanent');
 
 	return {
-		labelsRemovable: storedLabelsRemovable ? JSON.parse(storedLabelsRemovable) : [],
-		labelsPermanent: storedLabelsPermanent ? JSON.parse(storedLabelsPermanent) : []
+		labelsRemovable: storedLabelsRemovable ? JSON.parse(storedLabelsRemovable) : []
 	};
 }
 
