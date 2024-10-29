@@ -1,9 +1,11 @@
-10.18.24 - Restarting Todo list web app. Basic setup is created. Working on Task modal for now. 
+10.18.24 
+	- Restarting Todo list web app. Basic setup is created. Working on Task modal for now. 
 	- Tasks now push into the tasks array.
 	- Created modal open and close. Probably rework to be a single function.
 	- Header.js created.
 	- SASS
-10.19.24 - Need to work on Label task and modals. But the header needs to be made first to refine the open and close modals functions.
+10.19.24 
+	- Need to work on Label task and modals. But the header needs to be made first to refine the open and close modals functions.
 	- Reworked index to properly, ran into some loading issues / initialization.
 	- Reworked the modals, needed to change class names that caused issues since I was reusing the same one.
 	- Adjusted SCSS to reflect changes.
@@ -11,14 +13,16 @@
 		- Added account info and styling.
 		- Now working on showing labels and e.listeners for buttons.
 		- Need to rework populateHeaderNav. The function updateComponent needs to be defined.
-10.20.24 - Header now properly updates and populates navigation lists.
+10.20.24 
+	- Header now properly updates and populates navigation lists.
 	- Modals now open and close.
 	- Updated SCSS. 
 	- Need to work on updateUI
 		- updateUI will focus on the main container.
 		- Updates the container name with the label name.
 		- Populate tasks using filters.
-10.22.24 - Starting on main.js file.
+10.22.24 
+	- Starting on main.js file.
 	- Main.js created and stylied.
 	- Tasks now populate the main container. Needs CSS.
 		- Add buttons to complete or delete tasks. 
@@ -27,7 +31,8 @@
 		- Need to make another array for completed tasks. 
 	- Maybe also change how the delete button for labels show. Hover will show the delte button?
 	- Added some style.
-10.23.24 - Started working on task cards styling. 
+10.23.24 
+	- Started working on task cards styling. 
 	- Might re-structure the task cards. 
 		- Re-structured
 	- Tasks container 
@@ -40,3 +45,7 @@
 		- Updated logic for showing overdue tasks.
 	- Completed the rest of the logic. Tasks cards now have proper logic for complete/delete and ui updates..
 	- Add local storage and upload project. 
+10.28.24
+	- Created a new branch with a previous commit to rework local Storage.
+	- Local storage is added. 
+		-Revise the logic on the projec to pull the data from local instead of the hardcoded.

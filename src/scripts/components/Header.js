@@ -2,8 +2,10 @@ import React from "react";
 import "../../styles/style.scss";
 import portraitJoshP from '../../assets/portraitJoshP.jpeg';
 import { labelsPermanent, tasks, tasksCompleted } from '../data/data.js';
-import { createTask } from "./Main.js";
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
+
+import { storedLabelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable } from "../data/storage.js";
+import { createTask } from "./Main.js";
 let labelsRemovable = [...importedLabelsRemovable];
 
 function Header() {
@@ -25,14 +27,14 @@ function Header() {
 	</header>;
 }
 
-function populateHeaderNav(labelsPermanent, labelsRemovable) {
+function populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable) {
 	const headerNavList = document.querySelector('.header-nav-list');
+
 	if (!headerNavList) {
 	  console.error("No element with class 'header-nav-list' found.");
 	  return;
 	}
 	headerNavList.innerHTML = '';
-  
 	labelsPermanent.forEach((label, index) => {
 	  const li = createListItem(label, false);
 	  headerNavList.appendChild(li);
@@ -101,7 +103,6 @@ function updateTasks(label, mainContainer) {
 	mainContainer.appendChild(tasksContainer);
 
 	if (label === 'All') {
-		console.log(tasks);
 		createTask(tasks);
 	} else if (label === 'Overdue') {
 		const filteredTasks = tasks.filter(task => {
