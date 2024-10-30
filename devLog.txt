@@ -49,5 +49,3 @@
 	- Created a new branch with a previous commit to rework local Storage.
 	- Local storage is added. 
 		-Revise the logic on the projec to pull the data from local instead of the hardcoded.
-10.29.24
-	
