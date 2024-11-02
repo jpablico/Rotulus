@@ -12,11 +12,11 @@ import { Main } from './components/Main.js';
 const App = () => {
   useEffect(() => {
     modalTask();
-    modalLabel(labelsRemovable);
+    modalLabel(labelsRemovable, storedLabelsPermanent);
     labelSelection(labelsPermanent, labelsRemovable);
-    taskForm(tasks);
+    taskForm(tasks, storedTasks);
 
-    populateHeaderNav(labelsPermanent, labelsRemovable);
+    populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
     openModals();
     closeModals();
   

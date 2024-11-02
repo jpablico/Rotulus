@@ -1,5 +1,8 @@
 import React from 'react';
 import '../../styles/style.scss';
+import { labelsPermanent  } from '../data/data';
+import { storedLabelsPermanent, storedLabelsRemovable } from '../data/storage';
+import { populateHeaderNav } from './Header';
 
 function modalTask() {
 	const dialog = document.createElement('dialog');
@@ -41,24 +44,41 @@ function modalTask() {
 	document.body.appendChild(dialog);
 }
 
-function labelSelection(labelsPermanent, labelsRemovable) {
+function labelSelection(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable) {
 	const labelSelect = document.getElementById('taskLabel');
 	labelSelect.innerHTML = '';
-	labelsPermanent.forEach(label => {
-		const option = document.createElement('option');
-		option.value = label.Label;
-		option.textContent = label.Label;
-		labelSelect.appendChild(option);
-	});
-	labelsRemovable.forEach(label => {
-		const option = document.createElement('option');
-		option.value = label.Label;
-		option.textContent = label.Label;
-		labelSelect.appendChild(option);
-	});
+
+	if (storedLabelsPermanent && storedLabelsPermanent) {
+		console.log('Local storage, Label selection for Modal');
+		storedLabelsPermanent.forEach(label => {
+			const option = document.createElement('option');
+			option.value = label.Label;
+			option.textContent = label.Label;
+			labelSelect.appendChild(option);
+		});
+		storedLabelsRemovable.forEach(label => {
+			const option = document.createElement('option');
+			option.value = label.Label;
+			option.textContent = label.Label;
+			labelSelect.appendChild(option);
+		});
+	} else {
+		labelsPermanent.forEach(label => {
+			const option = document.createElement('option');
+			option.value = label.Label;
+			option.textContent = label.Label;
+			labelSelect.appendChild(option);
+		});
+		labelsRemovable.forEach(label => {
+			const option = document.createElement('option');
+			option.value = label.Label;
+			option.textContent = label.Label;
+			labelSelect.appendChild(option);
+		});
+	}
 }
 
-function taskForm(tasks) {
+function taskForm(tasks, storedTasks) {
 	const form = document.querySelector('.task-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
@@ -68,18 +88,29 @@ function taskForm(tasks) {
 		const priority = document.getElementById('priority').value;
 		const label = document.getElementById('taskLabel').value;
 
-		tasks.push({
-			name: task,
-			description: description,
-			date: date,
-			priority: priority,
-			label: label
-		});
-		console.log(tasks);
+		if (storedTasks) {
+			console.log('Stored to stoage tasks:', storedTasks);
+			storedTasks.push({
+				name: task,
+				description: description,
+				date: date,
+				priority: priority,
+				label: label
+			});
+		} else {
+			console.log('Hardcoded tasks:', tasks);
+			tasks.push({
+				name: task,
+				description: description,
+				date: date,
+				priority: priority,
+				label: label
+			});
+		}
 	});
 }
 
-function modalLabel(labelsRemovable, callback) {
+function modalLabel(labelsRemovable, storedLabelsPermanent,callback) {
 	const dialog = document.createElement('dialog');
 	dialog.id = 'modalLabel';
 	dialog.innerHTML = `
@@ -100,33 +131,52 @@ function modalLabel(labelsRemovable, callback) {
 	
 	document.body.appendChild(dialog);
   
-	// Add the form submission listener after the dialog is appended
 	const form = dialog.querySelector('.label-modal-form');
+	const modalLabel = document.getElementById('modalLabel');
 	if (form) {
 	  form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const label = document.getElementById('newLabel').value;
-		labelsRemovable.push({
-		  Label: label
-		});
-		console.log(labelsRemovable);
+		if (storedLabelsPermanent) {
+		  console.log('Stored to storage labels:', storedLabelsPermanent);
+		  storedLabelsPermanent.push({
+			Label: label
+		  });
+		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+		  modalLabel.close();
+		} else {
+		  console.log('Hardcoded labels:', labelsRemovable);
+		  labelsRemovable.push({
+			Label: label
+		  });
+		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+		  modalLabel.close();
+		}
 	  });
 	}
-
 	if (callback) {
 	  callback();
 	}
   }
 
-function labelForm(labelsRemovable) {
+function labelForm(labelsRemovable, storedLabelsRemovable) {
 	const form = document.querySelector('.label-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const label = document.getElementById('newLabel').value;
-		labelsRemovable.push({
-			Label: label
-		});
-		console.log(labelsRemovable);
+		if (storedLabelsRemovable) {
+			console.log('Stored to storage labels:', storedLabelsRemovable);
+			storedLabelsRemovable.push({
+				Label: label
+			});
+			console.log(storedLabelsRemovable);
+		} else {
+			console.log('Hardcoded labels:', labelsRemovable);
+			labelsRemovable.push({
+				Label: label
+			});
+			console.log(labelsRemovable);
+		}
 	});
 }
 

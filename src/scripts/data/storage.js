@@ -12,10 +12,11 @@ let storedTasksCompleted = JSON.parse(localStorage.getItem('tasksCompleted'));
 localStorage.setItem('labelsRemovable', JSON.stringify(labelsRemovable));
 let storedLabelsRemovable = JSON.parse(localStorage.getItem('labelsRemovable'));
 
+/*
 console.log('Stored tasks:', JSON.stringify(storedTasks, null, 2));
 console.log('Stored tasks completed:', JSON.stringify(storedTasksCompleted, null, 2));
 console.log('Stored labels removable:', JSON.stringify(storedLabelsRemovable, null, 2));
-
+*/
 function clearLocalStorage() {
 	localStorage.clear();
 	console.log('Local storage cleared');

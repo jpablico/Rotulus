@@ -3,11 +3,12 @@
 // Common styles shared between #modalTask and #modalLabel
 @mixin modal-common-styles($width: auto) {
 	padding: 1rem;
-	background-color: blue;
-	color: white;
+	background-color: rgb(209, 209, 209);
+	color: rgb(0, 0, 0);
 	margin: auto;
 	border-radius: 15px;
-	border: none;
+	border: 1px solid rgb(150, 150, 150);
+	box-shadow: -5px 0 10px -6px #868686;
 	width: $width;
 
 	// General form styling for modals

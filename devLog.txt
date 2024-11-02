@@ -49,3 +49,16 @@
 	- Created a new branch with a previous commit to rework local Storage.
 	- Local storage is added. 
 		-Revise the logic on the projec to pull the data from local instead of the hardcoded.
+11.2.24 
+	- Working on implementing local storage.
+		- Logic for using hardcoded or local storage. 
+			- Updated
+				- Header.js
+				- Main.js
+
+			- Sorta, need to update UI after submission.
+			- And double check SASS.
+			- Ensure things are working using Local and hardcoded. Remove Console logs.
+
+			
+		

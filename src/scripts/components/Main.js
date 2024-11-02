@@ -2,6 +2,7 @@ import React from "react";
 import '../../styles/style.scss';
 import { labelsPermanent, labelsRemovable, tasksCompleted, tasks } from '../data/data.js';
 import { populateHeaderNav } from "./Header.js";
+import { storedLabelsPermanent, storedLabelsRemovable } from "../data/storage.js";
 
 function Main() {
   return (
@@ -71,7 +72,7 @@ function completeTasks(taskName) {
 			tasks.splice(index, 1);
 		}
 	});
-	populateHeaderNav(labelsPermanent, labelsRemovable);
+	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
 	
 }
 function removeTasks(taskName) {
@@ -80,7 +81,7 @@ function removeTasks(taskName) {
 			tasksCompleted.splice(index, 1); 
 		}
 	});
-	populateHeaderNav(labelsPermanent, labelsRemovable)
+	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
 }
 
 export { Main, createTask, completeTasks};

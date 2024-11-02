@@ -32,35 +32,63 @@ function populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermane
 
 	if (!headerNavList) {
 	  console.error("No element with class 'header-nav-list' found.");
+	
 	  return;
-	}
-	headerNavList.innerHTML = '';
-	labelsPermanent.forEach((label, index) => {
-	  const li = createListItem(label, false);
-	  headerNavList.appendChild(li);
-  
-	  if (index === 0) {
-		li.classList.add('active');
-		updateUI(label.Label);
+	} else {
+		if (storedLabelsPermanent && storedLabelsRemovable) {
+			console.log('Local storage found');
+
+			headerNavList.innerHTML = '';
+			storedLabelsPermanent.forEach((label, index) => {
+				const li = createListItem(label, false);
+				headerNavList.appendChild(li);
+			
+				if (index === 0) {
+				li.classList.add('active');
+				updateUI(label.Label);
+				}
+			});
+
+			const hzLine = document.createElement('hr');
+			hzLine.classList.add('nav-divider');
+			headerNavList.appendChild(hzLine);
+
+			storedLabelsRemovable.forEach((label) => {
+				const li = createListItem(label, true);
+				headerNavList.appendChild(li);
+			});
+		} else {
+			console.log('No local storage found');
+			headerNavList.innerHTML = '';
+			labelsPermanent.forEach((label, index) => {
+			  const li = createListItem(label, false);
+			  headerNavList.appendChild(li);
+		  
+			  if (index === 0) {
+				li.classList.add('active');
+				updateUI(label.Label);
+			  }
+			});
+		  
+			const hzLine = document.createElement('hr');
+			hzLine.classList.add('nav-divider');
+			headerNavList.appendChild(hzLine);
+		  
+			labelsRemovable.forEach((label) => {
+			  const li = createListItem(label, true);
+			  headerNavList.appendChild(li);
+			});
+		}
+	
 	  }
-	});
-  
-	const hzLine = document.createElement('hr');
-	hzLine.classList.add('nav-divider');
-	headerNavList.appendChild(hzLine);
-  
-	labelsRemovable.forEach((label) => {
-	  const li = createListItem(label, true);
-	  headerNavList.appendChild(li);
-	});
-  }
+	}
   
 function createListItem(label, isRemovable) {
 	const li = document.createElement('li');
 	li.textContent = label.Label;
 	li.classList.add('nav-item');
 	li.dataset.label = label.Label;
-
+	
 	if (isRemovable) {
 		const removeBtn = document.createElement('span');
 		removeBtn.classList.add('material-symbols-outlined');
@@ -122,7 +150,7 @@ function updateTasks(label, mainContainer) {
 
 function removeItem(label) {
 	labelsRemovable = labelsRemovable.filter(item => item.Label !== label);
-	populateHeaderNav(labelsPermanent, labelsRemovable);
+	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
 }
 
 export { Header, populateHeaderNav};
