@@ -52,6 +52,11 @@ function createTask(array) {
 	});
 }
 
+function clearTasks() {
+	const tasksContainer = document.getElementsByClassName('tasks-container')[0];
+	tasksContainer.innerHTML = '';
+}
+
 function expandTask(taskCard) {
 	const taskDescription = taskCard.querySelector('.task-description');
 	const taskDate = taskCard.querySelector('.task-date');
@@ -84,4 +89,4 @@ function removeTasks(taskName) {
 	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
 }
 
-export { Main, createTask, completeTasks};
+export { Main, createTask, completeTasks, clearTasks};

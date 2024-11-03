@@ -36,7 +36,7 @@ function populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermane
 	  return;
 	} else {
 		if (storedLabelsPermanent && storedLabelsRemovable) {
-			console.log('Local storage found');
+			//console.log('Local storage found');
 
 			headerNavList.innerHTML = '';
 			storedLabelsPermanent.forEach((label, index) => {

@@ -10,9 +10,11 @@
   padding: 1rem;
   overflow: hidden;
   box-shadow: -5px 0 10px -5px #868686;
+  overflow: scroll;
 
-  .main-label {
-    color: #868686;
+  .label-title {
+    color: $background-color;
+    padding-left: 0.5rem
   }
 
   .tasks-container {
@@ -20,6 +22,8 @@
     flex-wrap: wrap;
     gap: 1rem;
     width: 100%;
+    //overflow: scroll;
+    padding: .5rem;
 
     .task-card {
       @include flex(column, none, none);

@@ -3,6 +3,7 @@ import '../../styles/style.scss';
 import { labelsPermanent  } from '../data/data';
 import { storedLabelsPermanent, storedLabelsRemovable } from '../data/storage';
 import { populateHeaderNav } from './Header';
+import { createTask, clearTasks } from './Main';
 
 function modalTask() {
 	const dialog = document.createElement('dialog');
@@ -80,6 +81,7 @@ function labelSelection(labelsPermanent, labelsRemovable, storedLabelsPermanent,
 
 function taskForm(tasks, storedTasks) {
 	const form = document.querySelector('.task-modal-form');
+	const modalTask = document.getElementById('modalTask');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const task = document.getElementById('task').value;
@@ -97,6 +99,9 @@ function taskForm(tasks, storedTasks) {
 				priority: priority,
 				label: label
 			});
+			clearTasks();
+			createTask(storedTasks);
+			modalTask.close();
 		} else {
 			console.log('Hardcoded tasks:', tasks);
 			tasks.push({
@@ -106,6 +111,9 @@ function taskForm(tasks, storedTasks) {
 				priority: priority,
 				label: label
 			});
+			clearTasks();
+			createTask(tasks);
+			modalTask.close();
 		}
 	});
 }

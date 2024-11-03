@@ -59,6 +59,8 @@
 			- Sorta, need to update UI after submission.
 			- And double check SASS.
 			- Ensure things are working using Local and hardcoded. Remove Console logs.
-
-			
-		
+11.3.24 
+	- Working on UI updates after submission. 
+	- Need to adjust storage.js
+		- Tasks are sent to local storage, however, the state does not. Implement a saving function for local storage and pull that data as well. 
+		- Recommended to encapsulate local storage into functions and to use useEffect() for tracking and updating changes in state changes.
