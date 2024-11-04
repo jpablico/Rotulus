@@ -1,8 +1,8 @@
 import React from "react";
 import '../../styles/style.scss';
-import { labelsPermanent, labelsRemovable, tasksCompleted, tasks } from '../data/data.js';
+import { labelsPermanent, labelsRemovable } from '../data/data.js';
 import { populateHeaderNav } from "./Header.js";
-import { storedLabelsPermanent, storedLabelsRemovable } from "../data/storage.js";
+import { storedLabelsPermanent, storedLabelsRemovable, storedTasks, storedTasksCompleted, updateStorage } from "../data/storage.js";
 
 function Main() {
   return (
@@ -14,6 +14,9 @@ function Main() {
 
 function createTask(array) {
 	const tasksContainer = document.getElementsByClassName('tasks-container')[0];
+	tasksContainer.innerHTML = ''; // Clear existing tasks
+
+	console.log('Creating tasks:', array);
 
 	array.forEach(element => {
 		const taskCard = document.createElement('div');
@@ -70,22 +73,24 @@ function expandTask(taskCard) {
 
 
 function completeTasks(taskName) {
-	tasks.forEach((task, index) => {
+	storedTasks.forEach((task, index) => {
 		if (task.name === taskName) {
 			task.label = 'Completed'; 
-			tasksCompleted.push(task);
-			tasks.splice(index, 1);
+			storedTasksCompleted.push(task);
+			storedTasks.splice(index, 1);
 		}
 	});
+	updateStorage(); 
 	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
-	
 }
+
 function removeTasks(taskName) {
-	tasksCompleted.forEach((task, index) => {
+	storedTasksCompleted.forEach((task, index) => {
 		if (task.name === taskName) {
-			tasksCompleted.splice(index, 1); 
+			storedTasksCompleted.splice(index, 1); 
 		}
 	});
+	updateStorage(); 
 	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
 }
 

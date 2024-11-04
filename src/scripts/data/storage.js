@@ -17,44 +17,29 @@ if (localStorage.getItem('labelsPermanent') === null || localStorage.getItem('ta
 }
 
 function LoadStorage() {
-	const labelsPermanent = JSON.parse(localStorage.getItem('labelsPermanent'));
-	let storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
-	let storedTasksCompleted = JSON.parse(localStorage.getItem('tasksCompleted')) || [];
-	let storedLabelsRemovable = JSON.parse(localStorage.getItem('labelsRemovable')) || [];
+	const labelsPermanent = JSON.parse(localStorage.getItem('labelsPermanent')) || [];
+	const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+	const storedTasksCompleted = JSON.parse(localStorage.getItem('tasksCompleted')) || [];
+	const storedLabelsRemovable = JSON.parse(localStorage.getItem('labelsRemovable')) || [];
+
+	console.log('Local Storage - Labels Permanent:', labelsPermanent);
+	console.log('Local Storage - Tasks:', storedTasks);
+	console.log('Local Storage - Tasks Completed:', storedTasksCompleted);
+	console.log('Local Storage - Labels Removable:', storedLabelsRemovable);
+
 	return { labelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable };
 }
 
 function updateStorage() {
-	localStorage.setItem('labelsPermanent', JSON.stringify(labelsPermanent));
+	localStorage.setItem('labelsPermanent', JSON.stringify(storedLabelsPermanent));
 	localStorage.setItem('tasks', JSON.stringify(storedTasks));
 	localStorage.setItem('tasksCompleted', JSON.stringify(storedTasksCompleted));
 	localStorage.setItem('labelsRemovable', JSON.stringify(storedLabelsRemovable));
 }
 
-
-
-
-/*
-localStorage.setItem('labelsPermanent', JSON.stringify(labelsPermanent));
-const storedLabelsPermanent = JSON.parse(localStorage.getItem('labelsPermanent'));
-
-localStorage.setItem('tasks', JSON.stringify(tasks));
-let storedTasks = JSON.parse(localStorage.getItem('tasks'));
-
-localStorage.setItem('tasksCompleted', JSON.stringify(tasksCompleted));
-let storedTasksCompleted = JSON.parse(localStorage.getItem('tasksCompleted'));
-
-localStorage.setItem('labelsRemovable', JSON.stringify(labelsRemovable));
-let storedLabelsRemovable = JSON.parse(localStorage.getItem('labelsRemovable'));
-*/
-/*
-console.log('Stored tasks:', JSON.stringify(storedTasks, null, 2));
-console.log('Stored tasks completed:', JSON.stringify(storedTasksCompleted, null, 2));
-console.log('Stored labels removable:', JSON.stringify(storedLabelsRemovable, null, 2));
-*/
 function clearLocalStorage() {
 	localStorage.clear();
 	console.log('Local storage cleared');
 }
 
-export { storedLabelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable, clearLocalStorage };
+export { storedLabelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable, clearLocalStorage, updateStorage, LoadStorage };

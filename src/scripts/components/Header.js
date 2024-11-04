@@ -4,7 +4,7 @@ import portraitJoshP from '../../assets/portraitJoshP.jpeg';
 import { labelsPermanent, tasks, tasksCompleted } from '../data/data.js';
 import { labelsRemovable as importedLabelsRemovable } from "../data/data.js";
 
-import { storedLabelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable } from "../data/storage.js";
+import { storedLabelsPermanent, storedTasks, storedTasksCompleted, storedLabelsRemovable, updateStorage } from "../data/storage.js";
 import { createTask } from "./Main.js";
 let labelsRemovable = [...importedLabelsRemovable];
 
@@ -32,56 +32,54 @@ function populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermane
 
 	if (!headerNavList) {
 	  console.error("No element with class 'header-nav-list' found.");
-	
 	  return;
-	} else {
-		if (storedLabelsPermanent && storedLabelsRemovable) {
-			//console.log('Local storage found');
-
-			headerNavList.innerHTML = '';
-			storedLabelsPermanent.forEach((label, index) => {
-				const li = createListItem(label, false);
-				headerNavList.appendChild(li);
-			
-				if (index === 0) {
-				li.classList.add('active');
-				updateUI(label.Label);
-				}
-			});
-
-			const hzLine = document.createElement('hr');
-			hzLine.classList.add('nav-divider');
-			headerNavList.appendChild(hzLine);
-
-			storedLabelsRemovable.forEach((label) => {
-				const li = createListItem(label, true);
-				headerNavList.appendChild(li);
-			});
-		} else {
-			console.log('No local storage found');
-			headerNavList.innerHTML = '';
-			labelsPermanent.forEach((label, index) => {
-			  const li = createListItem(label, false);
-			  headerNavList.appendChild(li);
-		  
-			  if (index === 0) {
-				li.classList.add('active');
-				updateUI(label.Label);
-			  }
-			});
-		  
-			const hzLine = document.createElement('hr');
-			hzLine.classList.add('nav-divider');
-			headerNavList.appendChild(hzLine);
-		  
-			labelsRemovable.forEach((label) => {
-			  const li = createListItem(label, true);
-			  headerNavList.appendChild(li);
-			});
-		}
-	
-	  }
 	}
+
+	headerNavList.innerHTML = ''; // Clear existing labels
+
+	console.log('Populating Header Nav - Labels Permanent:', storedLabelsPermanent);
+	console.log('Populating Header Nav - Labels Removable:', storedLabelsRemovable);
+
+	if (storedLabelsPermanent && storedLabelsRemovable) {
+		storedLabelsPermanent.forEach((label, index) => {
+			const li = createListItem(label, false);
+			headerNavList.appendChild(li);
+		
+			if (index === 0) {
+				li.classList.add('active');
+				updateUI(label.Label);
+			}
+		});
+
+		const hzLine = document.createElement('hr');
+		hzLine.classList.add('nav-divider');
+		headerNavList.appendChild(hzLine);
+
+		storedLabelsRemovable.forEach((label) => {
+			const li = createListItem(label, true);
+			headerNavList.appendChild(li);
+		});
+	} else {
+		labelsPermanent.forEach((label, index) => {
+			const li = createListItem(label, false);
+			headerNavList.appendChild(li);
+		
+			if (index === 0) {
+				li.classList.add('active');
+				updateUI(label.Label);
+			}
+		});
+	
+		const hzLine = document.createElement('hr');
+		hzLine.classList.add('nav-divider');
+		headerNavList.appendChild(hzLine);
+	
+		labelsRemovable.forEach((label) => {
+			const li = createListItem(label, true);
+			headerNavList.appendChild(li);
+		});
+	}
+}
   
 function createListItem(label, isRemovable) {
 	const li = document.createElement('li');

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../styles/style.scss';
 import { labelsPermanent  } from '../data/data';
-import { storedLabelsPermanent, storedLabelsRemovable } from '../data/storage';
+import { storedLabelsPermanent, storedLabelsRemovable, updateStorage } from '../data/storage';
 import { populateHeaderNav } from './Header';
 import { createTask, clearTasks } from './Main';
 
@@ -91,7 +91,6 @@ function taskForm(tasks, storedTasks) {
 		const label = document.getElementById('taskLabel').value;
 
 		if (storedTasks) {
-			console.log('Stored to stoage tasks:', storedTasks);
 			storedTasks.push({
 				name: task,
 				description: description,
@@ -99,11 +98,12 @@ function taskForm(tasks, storedTasks) {
 				priority: priority,
 				label: label
 			});
+			console.log('Stored Tasks after addition:', storedTasks);
 			clearTasks();
 			createTask(storedTasks);
+			updateStorage(); 
 			modalTask.close();
 		} else {
-			console.log('Hardcoded tasks:', tasks);
 			tasks.push({
 				name: task,
 				description: description,
@@ -111,8 +111,10 @@ function taskForm(tasks, storedTasks) {
 				priority: priority,
 				label: label
 			});
+			console.log('Hardcoded Tasks after addition:', tasks);
 			clearTasks();
 			createTask(tasks);
+			updateStorage(); 
 			modalTask.close();
 		}
 	});
@@ -151,6 +153,7 @@ function modalLabel(labelsRemovable, storedLabelsPermanent,callback) {
 			Label: label
 		  });
 		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+		  updateStorage(); 
 		  modalLabel.close();
 		} else {
 		  console.log('Hardcoded labels:', labelsRemovable);
@@ -158,6 +161,7 @@ function modalLabel(labelsRemovable, storedLabelsPermanent,callback) {
 			Label: label
 		  });
 		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+		  updateStorage(); 
 		  modalLabel.close();
 		}
 	  });
