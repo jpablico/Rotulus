@@ -119,8 +119,9 @@ function modalLabel(labelsRemovable, callback) {
 		  labelsRemovable.push({
 			Label: label
 		  });
+		  updateStorage();
+		  labelSelection(labelsPermanent, labelsRemovable);
 		  populateHeaderNav(labelsPermanent, labelsRemovable);
-		  updateStorage(); 
 		  modalLabel.close();
 		});
 	}
@@ -129,24 +130,17 @@ function modalLabel(labelsRemovable, callback) {
 	}
 }
 
-function labelForm(labelsRemovable, storedLabelsRemovable) {
+function labelForm(labelsRemovable) {
 	const form = document.querySelector('.label-modal-form');
 	form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const label = document.getElementById('newLabel').value;
-		if (storedLabelsRemovable) {
-			console.log('Stored to storage labels:', storedLabelsRemovable);
-			storedLabelsRemovable.push({
-				Label: label
-			});
-			console.log(storedLabelsRemovable);
-		} else {
-			console.log('Hardcoded labels:', labelsRemovable);
 			labelsRemovable.push({
 				Label: label
 			});
-			console.log(labelsRemovable);
-		}
+			updateStorage();
+			populateHeaderNav(labelsPermanent, labelsRemovable);
+		
 	});
 }
 

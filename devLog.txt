@@ -66,4 +66,5 @@
 11.4.24
 	- Reverting work that tried to implemnt local storage. 
 	- New logic found for working with local storage.
+	- Updated labels now properly show up in task form.
 	- updated all the code, tested, project is now completed!
