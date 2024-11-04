@@ -1,8 +1,8 @@
 import React from "react";
 import '../../styles/style.scss';
-import { labelsPermanent, labelsRemovable } from '../data/data.js';
+import { labelsPermanent, labelsRemovable, tasksCompleted, tasks } from '../data/data.js';
 import { populateHeaderNav } from "./Header.js";
-import { storedLabelsPermanent, storedLabelsRemovable, storedTasks, storedTasksCompleted, updateStorage } from "../data/storage.js";
+import { updateStorage } from "../data/storage.js";
 
 function Main() {
   return (
@@ -14,9 +14,7 @@ function Main() {
 
 function createTask(array) {
 	const tasksContainer = document.getElementsByClassName('tasks-container')[0];
-	tasksContainer.innerHTML = ''; // Clear existing tasks
-
-	console.log('Creating tasks:', array);
+	tasksContainer.innerHTML = ''; 
 
 	array.forEach(element => {
 		const taskCard = document.createElement('div');
@@ -71,27 +69,32 @@ function expandTask(taskCard) {
 	taskChevron.classList.toggle('expanded');
 }
 
-
 function completeTasks(taskName) {
-	storedTasks.forEach((task, index) => {
+	console.log('Task name:', taskName);
+	tasks.forEach((task, index) => {
 		if (task.name === taskName) {
 			task.label = 'Completed'; 
-			storedTasksCompleted.push(task);
-			storedTasks.splice(index, 1);
+			tasksCompleted.push(task);
+			tasks.splice(index, 1);
 		}
 	});
 	updateStorage(); 
-	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+	populateHeaderNav(labelsPermanent, labelsRemovable);
 }
 
 function removeTasks(taskName) {
-	storedTasksCompleted.forEach((task, index) => {
+	tasks.forEach((task, index) => {
 		if (task.name === taskName) {
-			storedTasksCompleted.splice(index, 1); 
+			tasks.splice(index, 1); 
+		}
+	});
+	tasksCompleted.forEach((task, index) => {
+		if (task.name === taskName) {
+			tasksCompleted.splice(index, 1); 
 		}
 	});
 	updateStorage(); 
-	populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+	populateHeaderNav(labelsPermanent, labelsRemovable);
 }
 
 export { Main, createTask, completeTasks, clearTasks};

@@ -55,7 +55,6 @@
 			- Updated
 				- Header.js
 				- Main.js
-
 			- Sorta, need to update UI after submission.
 			- And double check SASS.
 			- Ensure things are working using Local and hardcoded. Remove Console logs.
@@ -64,3 +63,7 @@
 	- Need to adjust storage.js
 		- Tasks are sent to local storage, however, the state does not. Implement a saving function for local storage and pull that data as well. 
 		- Recommended to encapsulate local storage into functions and to use useEffect() for tracking and updating changes in state changes.
+11.4.24
+	- Reverting work that tried to implemnt local storage. 
+	- New logic found for working with local storage.
+	- updated all the code, tested, project is now completed!

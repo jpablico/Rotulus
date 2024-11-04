@@ -93,4 +93,14 @@ let tasksCompleted = [
 	}
 ];
 
-export { labelsPermanent, labelsRemovable, tasks, tasksCompleted };
+function pullStorage() {
+	const storedLabelsRemovable = JSON.parse(localStorage.getItem('labelsRemovable'));
+	const storedTasks = JSON.parse(localStorage.getItem('tasks'));
+	const storedTasksCompleted = JSON.parse(localStorage.getItem('tasksCompleted'));
+
+	if (storedLabelsRemovable) labelsRemovable = storedLabelsRemovable;
+	if (storedTasks) tasks = storedTasks;
+	if (storedTasksCompleted) tasksCompleted = storedTasksCompleted;
+}
+
+export { labelsPermanent, labelsRemovable, tasks, tasksCompleted, pullStorage };

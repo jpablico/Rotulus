@@ -45,25 +45,10 @@ function modalTask() {
 	document.body.appendChild(dialog);
 }
 
-function labelSelection(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable) {
+function labelSelection(labelsPermanent, labelsRemovable) {
 	const labelSelect = document.getElementById('taskLabel');
 	labelSelect.innerHTML = '';
 
-	if (storedLabelsPermanent && storedLabelsPermanent) {
-		console.log('Local storage, Label selection for Modal');
-		storedLabelsPermanent.forEach(label => {
-			const option = document.createElement('option');
-			option.value = label.Label;
-			option.textContent = label.Label;
-			labelSelect.appendChild(option);
-		});
-		storedLabelsRemovable.forEach(label => {
-			const option = document.createElement('option');
-			option.value = label.Label;
-			option.textContent = label.Label;
-			labelSelect.appendChild(option);
-		});
-	} else {
 		labelsPermanent.forEach(label => {
 			const option = document.createElement('option');
 			option.value = label.Label;
@@ -76,10 +61,10 @@ function labelSelection(labelsPermanent, labelsRemovable, storedLabelsPermanent,
 			option.textContent = label.Label;
 			labelSelect.appendChild(option);
 		});
-	}
+	
 }
 
-function taskForm(tasks, storedTasks) {
+function taskForm(tasks) {
 	const form = document.querySelector('.task-modal-form');
 	const modalTask = document.getElementById('modalTask');
 	form.addEventListener('submit', function(event) {
@@ -90,37 +75,21 @@ function taskForm(tasks, storedTasks) {
 		const priority = document.getElementById('priority').value;
 		const label = document.getElementById('taskLabel').value;
 
-		if (storedTasks) {
-			storedTasks.push({
-				name: task,
-				description: description,
-				date: date,
-				priority: priority,
-				label: label
-			});
-			console.log('Stored Tasks after addition:', storedTasks);
-			clearTasks();
-			createTask(storedTasks);
-			updateStorage(); 
-			modalTask.close();
-		} else {
-			tasks.push({
-				name: task,
-				description: description,
-				date: date,
-				priority: priority,
-				label: label
-			});
-			console.log('Hardcoded Tasks after addition:', tasks);
-			clearTasks();
-			createTask(tasks);
-			updateStorage(); 
-			modalTask.close();
-		}
+		tasks.push({
+			name: task,
+			description: description,
+			date: date,
+			priority: priority,
+			label: label
+		});
+		clearTasks();
+		createTask(tasks);
+		updateStorage(); 
+		modalTask.close();
 	});
 }
 
-function modalLabel(labelsRemovable, storedLabelsPermanent,callback) {
+function modalLabel(labelsRemovable, callback) {
 	const dialog = document.createElement('dialog');
 	dialog.id = 'modalLabel';
 	dialog.innerHTML = `
@@ -147,29 +116,18 @@ function modalLabel(labelsRemovable, storedLabelsPermanent,callback) {
 	  form.addEventListener('submit', function(event) {
 		event.preventDefault();
 		const label = document.getElementById('newLabel').value;
-		if (storedLabelsPermanent) {
-		  console.log('Stored to storage labels:', storedLabelsPermanent);
-		  storedLabelsPermanent.push({
-			Label: label
-		  });
-		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
-		  updateStorage(); 
-		  modalLabel.close();
-		} else {
-		  console.log('Hardcoded labels:', labelsRemovable);
 		  labelsRemovable.push({
 			Label: label
 		  });
-		  populateHeaderNav(labelsPermanent, labelsRemovable, storedLabelsPermanent, storedLabelsRemovable);
+		  populateHeaderNav(labelsPermanent, labelsRemovable);
 		  updateStorage(); 
 		  modalLabel.close();
-		}
-	  });
+		});
 	}
-	if (callback) {
+	if (typeof callback === 'function') {
 	  callback();
 	}
-  }
+}
 
 function labelForm(labelsRemovable, storedLabelsRemovable) {
 	const form = document.querySelector('.label-modal-form');
