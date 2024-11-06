@@ -2,6 +2,8 @@
 
 Rotulus is a streamlined to-do app designed to help users organize and manage tasks efficiently. With a focus on simplicity and functionality, Rotulus allows users to create, update, and categorize tasks, all while saving progress through local storage for persistent tracking. Key features include customizable labels, completed tasks tracking, and a clean, intuitive interface. Whether for daily tasks or long-term projects, Rotulus aims to keep users organized and productive.
 
+![Rotulus Screenshot](Rotulus.png)
+
 Learning Goals
 
 	•	Object-Oriented Programming (OOP): Apply OOP principles to dynamically create and manage ‘todo’ items with properties like title, description, due date, and priority.
